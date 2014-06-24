@@ -1,7 +1,8 @@
 require_relative 'ipdsimulation/constants'
-require_relative 'ipdsimulation/chromosome'
 require_relative 'ipdsimulation/population'
 require_relative 'ipdsimulation/game'
+require_relative 'ipdsimulation/individual/individual'
+require_relative 'ipdsimulation/individual/forgetful_individual'
 
 module IPDSimulation
   population = Population.new

@@ -24,6 +24,10 @@ module IPDSimulation
       opponent.score += round_score2
     end
 
+    def to_s
+      "[#{score}, {#{genes.join(', ')}}]"
+    end
+
     def move_against(opponent)
       raise NoMethodError, 'Abstract method #move_against undefined'
     end
