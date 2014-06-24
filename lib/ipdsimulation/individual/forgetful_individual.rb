@@ -1,8 +1,7 @@
 module IPDSimulation
   class ForgetfulIndividual < Individual
-    def initialize(args = {})
-      self.genes = args[:genes] || [rand]
-      self.score = args[:score] || 0
+    def default_genes
+      [rand]
     end
 
     def move_against(opponent)

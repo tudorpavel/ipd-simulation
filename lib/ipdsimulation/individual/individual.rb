@@ -2,6 +2,11 @@ module IPDSimulation
   class Individual
     attr_accessor :genes, :score
 
+    def initialize(args = {})
+      self.genes = args[:genes] || default_genes
+      self.score = args[:score] || 0
+    end
+
     def mutate!
       gene = rand(genes.length)
       genes[gene] += [-1, 1].sample * MUTATION_DELTA
@@ -26,6 +31,10 @@ module IPDSimulation
 
     def to_s
       "[#{score}, {#{genes.join(', ')}}]"
+    end
+
+    def default_genes
+      raise NoMethodError, 'Abstract method #default_genes undefined'
     end
 
     def move_against(opponent)
