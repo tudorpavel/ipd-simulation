@@ -65,7 +65,7 @@ module IPDSimulation
       rand_individual = individuals.sample
 
       if rand <= propagation_prob(rand_individual)
-        # rand_individual.score /= 2
+        rand_individual.score /= 2
         return rand_individual
       end
     end

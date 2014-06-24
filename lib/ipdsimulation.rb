@@ -1,5 +1,6 @@
 require_relative 'ipdsimulation/individual/individual'
 require_relative 'ipdsimulation/individual/forgetful_individual'
+require_relative 'ipdsimulation/individual/reactive_individual'
 require_relative 'ipdsimulation/constants'
 require_relative 'ipdsimulation/game'
 require_relative 'ipdsimulation/population'
