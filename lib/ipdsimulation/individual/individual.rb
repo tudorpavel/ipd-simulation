@@ -3,15 +3,17 @@ module IPDSimulation
     attr_accessor :genes, :score
 
     def initialize(args = {})
-      self.genes = args[:genes] || default_genes
+      self.genes = args[:genes].nil? ? default_genes : args[:genes].clone
       self.score = args[:score] || 0
     end
 
     def mutate!
       gene = rand(genes.length)
-      genes[gene] += [-1, 1].sample * MUTATION_DELTA
+      genes[gene] = rand
+      # genes[gene] += [-1, 1].sample * MUTATION_DELTA
 
-      genes[gene] = 1.0 if genes[gene] > 1.0
+      # genes[gene] = 0.0 if genes[gene] < 0.0
+      # genes[gene] = 1.0 if genes[gene] > 1.0
     end
 
     def play_round_against(opponent)

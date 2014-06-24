@@ -1,45 +1,48 @@
 module IPDSimulation
   class Population
-    attr_accessor :chromosomes
+    attr_accessor :individuals
 
-    def initialize(chromos = nil)
-      self.chromosomes = Array.new
+    def initialize(args = {})
+      self.individuals = Array.new
 
-      unless chromos.nil?
-        chromos.each { |c| self.chromosomes << Chromosome.new(c.genes, c.score) }
+      # Essentially clone given population
+      unless args[:individuals].nil?
+        args[:individuals].each do |i|
+          self.individuals << i.class.new(genes: i.genes, score: i.score)
+        end
+      end
+
+      unless args[:seed_with].nil?
+        seed!(args[:seed_with])
       end
     end
 
     def play_games
-      # Reset scores
-      chromosomes.each { |c| c.score = 0 }
-
-      (0..chromosomes.length-2).each do |i|
-        (i+1..chromosomes.length-1).each do |j|
-          Game.new(chromosomes[i], chromosomes[j]).play_game
+      (0..individuals.length-2).each do |i|
+        (i+1..individuals.length-1).each do |j|
+          Game.new(individuals[i], individuals[j]).play_game
         end
       end
     end
 
+    def mutate!
+      individuals.sample(AFFECTED_BY_MUTATION * size).map!(&:mutate!)
+    end
+
     def inspect
-      chromosomes.join(" ")
+      %Q{
+*** POPULATION *********
+#{ individuals.join("\n") }
+************************
+      }
     end
 
-    def seed!
-      chromosomes = Array.new
-      1.upto(POPULATION_SIZE).each do
-        chromosomes << Chromosome.new
-      end
-
-      self.chromosomes = chromosomes
-    end
-
-    def count
-      chromosomes.count
+    def size
+      individuals.length
     end
 
     def fitness_values
-      chromosomes.collect(&:fitness)
+      individuals.map(&:score)
     end
 
     def total_fitness
@@ -55,21 +58,26 @@ module IPDSimulation
     end
 
     def average_fitness
-      total_fitness.to_f / chromosomes.length.to_f
-    end
-
-    def propagation_prob(fitness)
-      (fitness + 1 - min_fitness).to_f / (max_fitness + 1 - min_fitness)
+      total_fitness.to_f / size.to_f
     end
 
     def select
-      while true do
-        rand_chromosome = chromosomes[rand(count)]
+      rand_individual = individuals.sample
 
-        if rand <= propagation_prob(rand_chromosome.fitness)
-          return rand_chromosome
-        end
+      if rand <= propagation_prob(rand_individual)
+        # rand_individual.score /= 2
+        return rand_individual
       end
     end
+
+    private
+
+      def seed!(seed_class)
+        POPULATION_SIZE.times { self.individuals << seed_class.new }
+      end
+
+      def propagation_prob(individual)
+        (individual.score - min_fitness + 1).to_f / (max_fitness - min_fitness + 1)
+      end
   end
 end
