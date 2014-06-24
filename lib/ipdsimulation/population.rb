@@ -1,5 +1,3 @@
-require_relative 'game'
-
 module IPDSimulation
   class Population
     attr_accessor :chromosomes
