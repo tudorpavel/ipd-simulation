@@ -28,7 +28,7 @@ module IPDSimulation
     end
 
     def total_fitness
-      fitness_values.inject{|total, value| total + value }
+      fitness_values.reduce(:+)
     end
 
     def max_fitness
