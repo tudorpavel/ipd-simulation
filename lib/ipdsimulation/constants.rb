@@ -4,11 +4,11 @@ module IPDSimulation
   INDIVIDUAL_TYPE = types[0]
 
   # Simulation
-  POPULATION_SIZE = 20
-  NUM_GENERATIONS = 1000
+  POPULATION_SIZE = 5
+  NUM_GENERATIONS = 10
 
   # Mutation
-  AFFECTED_BY_MUTATION = 0.2
+  AFFECTED_BY_MUTATION = 0.1
   MUTATION_DELTA = 0.2
 
   # Game
