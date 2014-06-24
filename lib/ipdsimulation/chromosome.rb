@@ -1,17 +1,23 @@
 module IPDSimulation
   class Chromosome
-    attr_accessor :genes
+    attr_accessor :genes, :score
 
-    def initialize(genes = "")
+    def initialize(genes = "", score = 0)
       if genes == ""
         self.genes = (1..NUM_BITS).map{ rand(2) }.join
       else
         self.genes = genes
       end
+
+      self.score = score
+    end
+
+    def coop_prob
+      [genes + '111111100'].pack('b*').unpack('F').first - 1
     end
 
     def to_s
-      genes.to_s
+      "(#{fitness}, #{coop_prob.to_s})"
     end
 
     def count
@@ -19,7 +25,7 @@ module IPDSimulation
     end
 
     def fitness
-      genes.count("1")
+      score
     end
 
     def mutate!

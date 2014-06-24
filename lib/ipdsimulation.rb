@@ -1,12 +1,17 @@
-require_relative 'ipdsimulation/constants.rb'
-require_relative 'ipdsimulation/chromosome.rb'
-require_relative 'ipdsimulation/population.rb'
+require_relative 'ipdsimulation/constants'
+require_relative 'ipdsimulation/chromosome'
+require_relative 'ipdsimulation/population'
 
 module IPDSimulation
   population = Population.new
   population.seed!
 
+  max_average = population
+  max_max = population
+
   1.upto(NUM_GENERATIONS).each do |generation|
+
+    population.play_games
 
     offspring = Population.new
 
@@ -32,9 +37,16 @@ module IPDSimulation
     end
 
     puts "Generation #{generation} - Average: #{population.average_fitness.round(2)} - Max: #{population.max_fitness}"
+    # puts "Current population: " + population.inspect
+    max_average = Population.new(population.chromosomes) if population.average_fitness > max_average.average_fitness
+    max_max = Population.new(population.chromosomes) if population.max_fitness > max_max.max_fitness
 
     population = offspring
   end
 
   puts "Final population: " + population.inspect
+  puts "Average: #{max_average.average_fitness.round(2)} - Max: #{max_average.max_fitness}"
+  puts "Max Average population: " + max_average.inspect
+  puts "Average: #{max_max.average_fitness.round(2)} - Max: #{max_max.max_fitness}"
+  puts "Max Max population: " + max_max.inspect
 end
