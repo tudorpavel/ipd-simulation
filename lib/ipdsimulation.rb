@@ -1,6 +1,7 @@
 require_relative 'ipdsimulation/individual/individual'
 require_relative 'ipdsimulation/individual/forgetful_individual'
 require_relative 'ipdsimulation/individual/reactive_individual'
+require_relative 'ipdsimulation/individual/mindful_individual'
 require_relative 'ipdsimulation/constants'
 require_relative 'ipdsimulation/game'
 require_relative 'ipdsimulation/population'
@@ -36,7 +37,7 @@ module IPDSimulation
     population = offspring
   end
 
-  puts "Final population: " + population.inspect
+  # puts "Final population: " + population.inspect
   puts "Max Average: #{max_average.average_fitness.round(2)} - Max: #{max_average.max_fitness}, Average strategy: #{population.average_strategy}"
   # puts max_average.inspect
   puts "Max Max: #{max_max.average_fitness.round(2)} - Max: #{max_max.max_fitness}, Average strategy: #{population.average_strategy}"

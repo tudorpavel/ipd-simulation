@@ -1,7 +1,7 @@
 module IPDSimulation
   # Individual type
-  types = [ForgetfulIndividual, ReactiveIndividual]
-  INDIVIDUAL_TYPE = types[1]
+  types = [ForgetfulIndividual, ReactiveIndividual, MindfulIndividual]
+  INDIVIDUAL_TYPE = types[2]
 
   # Simulation
   POPULATION_SIZE = 100
