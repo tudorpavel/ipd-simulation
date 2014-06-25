@@ -42,7 +42,7 @@ module IPDSimulation
     end
 
     def fitness_values
-      individuals.map(&:score)
+      individuals.map(&:fitness)
     end
 
     def total_fitness
@@ -61,11 +61,22 @@ module IPDSimulation
       total_fitness.to_f / size.to_f
     end
 
+    def average_strategy
+      genes = individuals
+        .map(&:genes)
+        .reduce(:zip)
+        .map(&:flatten)
+        .map { |gs| gs.reduce(:+) }
+        .map { |g| (g / size.to_f).round(2) }
+
+      "{#{ genes.join(', ') }}"
+    end
+
     def select
       rand_individual = individuals.sample
 
       if rand <= propagation_prob(rand_individual)
-        rand_individual.score /= 2
+        # rand_individual.score /= 2
         return rand_individual
       end
     end
@@ -77,7 +88,11 @@ module IPDSimulation
       end
 
       def propagation_prob(individual)
-        (individual.score - min_fitness + 1).to_f / (max_fitness - min_fitness + 1)
+        2 * (individual.fitness.to_f / total_fitness.to_f)
+      end
+
+      def propagation_prob2(individual)
+        (individual.fitness - min_fitness + 1).to_f / (max_fitness - min_fitness + 1)
       end
   end
 end

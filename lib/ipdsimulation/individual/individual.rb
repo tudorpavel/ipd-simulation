@@ -9,11 +9,11 @@ module IPDSimulation
 
     def mutate!
       gene = rand(genes.length)
-      genes[gene] = rand
-      # genes[gene] += [-1, 1].sample * MUTATION_DELTA
+      # genes[gene] = rand
+      genes[gene] += [-1, 1].sample * MUTATION_DELTA
 
-      # genes[gene] = 0.0 if genes[gene] < 0.0
-      # genes[gene] = 1.0 if genes[gene] > 1.0
+      genes[gene] = 0.0 if genes[gene] < 0.0
+      genes[gene] = 1.0 if genes[gene] > 1.0
     end
 
     def play_round_against(opponent)
@@ -32,8 +32,16 @@ module IPDSimulation
       opponent.score += round_score2
     end
 
+    def fitness
+      score
+    end
+
+    def rounded_genes
+      genes.map { |g| g.round(2) }
+    end
+
     def to_s
-      "[#{score}, {#{genes.join(', ')}}]"
+      "[#{ fitness }, {#{ rounded_genes.join(', ') }}]"
     end
 
     def default_genes
