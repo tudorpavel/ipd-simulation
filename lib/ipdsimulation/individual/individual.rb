@@ -36,12 +36,12 @@ module IPDSimulation
       score
     end
 
-    def rounded_genes
-      genes.map { |g| g.round(2) }
+    def rounded_genes(d)
+      genes.map { |g| g.round(d) }
     end
 
     def to_s
-      "[#{ fitness }, {#{ rounded_genes.join(', ') }}]"
+      "[#{ fitness }, {#{ rounded_genes(2).join(', ') }}]"
     end
 
     def default_genes
