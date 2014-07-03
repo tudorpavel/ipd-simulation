@@ -57,6 +57,10 @@ module IPDSimulation
       fitness_values.max
     end
 
+    def tit_for_tat_percent
+      individuals.select { |i| i.genes[0] > 0.9 && i.genes[1] < 0.7 }.length.to_f / size
+    end
+
     def average_fitness
       total_fitness.to_f / size.to_f
     end
@@ -69,7 +73,7 @@ module IPDSimulation
         .map { |gs| gs.reduce(:+) }
         .map { |g| (g / size.to_f).round(2) }
 
-      "{#{ genes.join(', ') }}"
+      "#{ genes.join(' ') }"
     end
 
     def select

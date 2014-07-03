@@ -4,8 +4,8 @@ module IPDSimulation
   INDIVIDUAL_TYPE = types[2]
 
   # Simulation
+  NUM_GENERATIONS = 300
   POPULATION_SIZE = 100
-  NUM_GENERATIONS = 400
 
   # Mutation
   AFFECTED_BY_MUTATION = 0.3

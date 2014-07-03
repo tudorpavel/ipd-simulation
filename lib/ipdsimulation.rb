@@ -15,7 +15,21 @@ module IPDSimulation
   1.upto(NUM_GENERATIONS).each do |generation|
     population.play_games
 
-    puts "Generation #{generation} - Average: #{population.average_fitness.round(2)} - Max: #{population.max_fitness}, Average strategy: #{population.average_strategy}"
+    if generation % (NUM_GENERATIONS / 100) == 0
+      # msg = "(#{ generation } #{population.average_fitness.round(2)} #{ population.average_strategy }"
+      msg = "Generation #{generation} - Average fitness: #{population.average_fitness.round(2)}, Average strategy: #{population.average_strategy}"
+
+      if INDIVIDUAL_TYPE == ReactiveIndividual
+        # msg += " #{ population.tit_for_tat_percent.round(2) }"
+        msg += ", TIT FOR TAT percent: #{ population.tit_for_tat_percent.round(2) }"
+      end
+
+      # msg += ')'
+
+      puts msg
+    end
+
+
     # puts "Current population: " + population.inspect
 
     max_average = Population.new(individuals: population.individuals) if population.average_fitness > max_average.average_fitness
