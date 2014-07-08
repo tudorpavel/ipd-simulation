@@ -20,7 +20,7 @@ It uses three types of strategies:
 
 The parameters for running the simulation can be found in the `/lib/ipdsimulation/constants.rb` file. Once the values have been set, the simulation can be started by executing the following command inside the `/lib` folder:
 
-`ruby ipdsimulation.rb`
+        ruby ipdsimulation.rb
 
 Output messages will be printed as the simulation runs.
 
