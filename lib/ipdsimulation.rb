@@ -52,8 +52,8 @@ module IPDSimulation
   end
 
   # puts "Final population: " + population.inspect
-  puts "Max Average: #{max_average.average_fitness.round(2)} - Max: #{max_average.max_fitness}, Average strategy: #{max_average.average_strategy}"
+  puts "Max Average --> Average fitness: #{max_average.average_fitness.round(2)} - Max: #{max_average.max_fitness}, Average strategy: #{max_average.average_strategy}"
   # puts max_average.inspect
-  puts "Max Max: #{max_max.average_fitness.round(2)} - Max: #{max_max.max_fitness}, Average strategy: #{max_max.average_strategy}"
+  puts "Max Max --> Average fitness: #{max_max.average_fitness.round(2)} - Max: #{max_max.max_fitness}, Average strategy: #{max_max.average_strategy}"
   # puts max_max.inspect
 end
